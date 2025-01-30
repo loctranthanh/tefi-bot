@@ -1,73 +1,123 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Telfine - Telegram Finance Assistant
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+A smart Telegram bot that helps users track and manage their daily expenses using natural language processing and AI.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Features
 
-## Description
+- 💬 Natural Language Processing for expense tracking
+- 📸 OCR Receipt scanning and processing
+- 🎤 Voice message expense recording
+- 📊 Detailed financial reports and analytics
+- 🗂 Auto-categorization of expenses
+- 📅 Daily and monthly expense summaries
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Tech Stack
+
+- Node.js & NestJS
+- PostgreSQL & TypeORM
+- OpenAI GPT & Whisper API
+- Telegram Bot API
+- FFmpeg for audio processing
+
+## Prerequisites
+
+- Node.js 18+
+- PostgreSQL 12+
+- FFmpeg
+- OpenAI API key
+- Telegram Bot Token
 
 ## Installation
 
+1. Clone the repository:
 ```bash
-$ npm install
+git clone https://github.com/yourusername/telfine.git
+cd telfine
 ```
 
-## Running the app
-
+2. Install dependencies:
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+npm install
 ```
 
-## Test
-
+3. Configure environment variables:
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+cp .env.example .env
+# Edit .env with your configuration
 ```
 
-## Support
+4. Run database migrations:
+```bash
+npm run migrate
+```
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+5. Start the application:
+```bash
+# Development
+npm run start:dev
 
-## Stay in touch
+# Production
+npm run build
+npm run start:prod
+```
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+## Usage
+
+### Bot Commands
+
+- `/start` - Register and start using the bot
+- `/help` - Show available commands
+- `/report` - View current month's expenses
+- `/date [dd/MM/yyyy]` - View expenses by date
+- `/month [MM/yyyy]` - View expenses by month
+- `/update` - Update expense entry (reply to message)
+- `/delete` or `/cancel` - Delete expense entry (reply to message)
+
+### Expense Recording
+
+- Send text messages with expense details
+- Send photos of receipts
+- Send voice messages describing expenses
+
+## Development
+
+### Available Scripts
+
+- `npm run build` - Build the application
+- `npm run format` - Format code with Prettier
+- `npm run start:dev` - Start in development mode
+- `npm run start:debug` - Start in debug mode
+- `npm run lint` - Run ESLint
+- `npm test` - Run tests
+- `npm run migration:create` - Create new migration
+- `npm run migrate` - Run migrations
+- `npm run migration:down` - Revert last migration
+
+### Project Structure
+
+```
+src/
+├── database/       # Database migrations and configurations
+├── telegram/       # Telegram bot module
+├── openai/         # OpenAI integration module
+├── transaction/    # Transaction management module
+└── shared/        # Shared utilities and interfaces
+```
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
 ## License
 
-Nest is [MIT licensed](LICENSE).
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Acknowledgments
+
+- [Telegraf](https://github.com/telegraf/telegraf) for the Telegram Bot framework
+- [OpenAI](https://openai.com) for AI capabilities
+- [NestJS](https://nestjs.com) for the awesome framework
