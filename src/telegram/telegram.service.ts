@@ -124,12 +124,16 @@ export class TelegramService implements OnModuleInit {
 
   async handleExpenseMessage(ctx: Context, text: string) {
     try {
+      const userId = this.getUserId(ctx);
       const jsonResponse = await this.openaiService.extractExpenseDetails(text);
       const expenseData = JSON.parse(jsonResponse);
+      if (!expenseData.amount || expenseData.amount <= 0) {
+        return;
+      }
 
       const transaction = await this.transactionService.create({
         chatId: ctx.message?.message_id?.toString(),
-        userId: ctx.from?.id.toString(),
+        userId: userId,
         amount: expenseData.amount,
         location: expenseData.location,
         fulltext: expenseData.full_message,
@@ -139,7 +143,7 @@ export class TelegramService implements OnModuleInit {
       });
 
       const dailyTotals = await this.getDailyTotalsMessage(
-        ctx.from?.id.toString(),
+        userId,
       );
       await ctx.reply(
         `✅ Đã ghi nhận chi tiêu:\n` +
@@ -161,6 +165,7 @@ export class TelegramService implements OnModuleInit {
 
   async handleExpenseImage(ctx: Context, photo: any) {
     try {
+      const userId = this.getUserId(ctx);
       // Get the largest photo (best quality)
       const fileId = photo[photo.length - 1].file_id;
       const file = await ctx.telegram.getFile(fileId);
@@ -171,10 +176,13 @@ export class TelegramService implements OnModuleInit {
       const jsonResponse =
         await this.openaiService.analyzeExpenseImage(fileUrl);
       const expenseData = JSON.parse(jsonResponse);
+      if (!expenseData.amount || expenseData.amount <= 0) {
+        return;
+      }
 
       const transaction = await this.transactionService.create({
         chatId: ctx.message?.message_id?.toString(),
-        userId: ctx.from?.id.toString(),
+        userId: userId,
         amount: expenseData.amount,
         location: expenseData.location,
         fulltext: "Image analysis",
@@ -184,7 +192,7 @@ export class TelegramService implements OnModuleInit {
       });
 
       const dailyTotals = await this.getDailyTotalsMessage(
-        ctx.from?.id.toString(),
+        userId,
       );
       await ctx.reply(
         `✅ Đã ghi nhận chi tiêu từ hình ảnh:\n` +
