@@ -32,7 +32,7 @@ export class TelegramService implements OnModuleInit {
   }
 
   private async registerUser(ctx: Context) {
-    const chatId = ctx.chat?.id.toString();
+    const chatId = this.getUserId(ctx);
     if (!chatId) return null;
 
     let user = await this.telegramUserRepository.findOne({ where: { chatId } });
@@ -317,8 +317,12 @@ export class TelegramService implements OnModuleInit {
     return null;
   }
 
+  private getUserId(ctx: Context): string | null {
+    return ctx.chat?.id.toString();
+  }
+
   async dateCommand(ctx: Context) {
-    const userId = ctx.from?.id.toString();
+    const userId = this.getUserId(ctx);
     if (!userId) {
       return ctx.reply("❌ Không thể xác định người dùng.");
     }
@@ -410,7 +414,7 @@ export class TelegramService implements OnModuleInit {
   }
 
   async monthCommand(ctx: Context) {
-    const userId = ctx.from?.id.toString();
+    const userId = this.getUserId(ctx);
     if (!userId) {
       return ctx.reply("❌ Không thể xác định người dùng.");
     }
@@ -468,7 +472,7 @@ export class TelegramService implements OnModuleInit {
 
   async deleteCommand(ctx: Context) {
     try {
-      const userId = ctx.from?.id.toString();
+      const userId = this.getUserId(ctx);
       if (!userId) {
         return ctx.reply("❌ Không thể xác định người dùng.");
       }
@@ -503,7 +507,7 @@ export class TelegramService implements OnModuleInit {
 
   async updateCommand(ctx: Context) {
     try {
-      const userId = ctx.from?.id.toString();
+      const userId = this.getUserId(ctx);
       if (!userId) {
         return ctx.reply("❌ Không thể xác định người dùng.");
       }
@@ -597,7 +601,7 @@ export class TelegramService implements OnModuleInit {
   }
 
   async reportCommand(ctx: Context) {
-    const userId = ctx.from?.id.toString();
+    const userId = this.getUserId(ctx);
     if (!userId) {
       return ctx.reply("❌ Không thể xác định người dùng.");
     }
