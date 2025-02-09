@@ -31,8 +31,8 @@ A smart Telegram bot that helps users track and manage their daily expenses usin
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/telfine.git
-cd telfine
+git clone https://github.com/loctranthanh/tefi-bot.git
+cd tefi-bot
 ```
 
 2. Install dependencies:
